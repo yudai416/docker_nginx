@@ -1,0 +1,23 @@
+services:
+  web:
+    build:
+      context: .
+      target: web
+    ports: &common-ports
+      - 80:80
+      - 443:443
+  centos:
+    build:
+      context: .
+      target: centos
+    ports: *common-ports
+    command: &common-command
+      bash -c "/usr/sbin/nginx && /bin/bash"
+    tty: true
+  ubuntu:
+    build:
+      context: .
+      target: ubuntu
+    ports: *common-ports
+    command: *common-command
+    tty: true
